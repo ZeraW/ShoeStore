@@ -18,7 +18,7 @@
     app:cardCornerRadius="@dimen/m8"
     app:cardElevation="5dp"
     >
-
+    <!-- Constraint is the best practice here-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cardConstrainLayout"
         android:layout_width="match_parent"

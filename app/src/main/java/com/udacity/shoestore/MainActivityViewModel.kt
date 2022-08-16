@@ -1,15 +1,21 @@
-package com.udacity.shoestore.screens.shoe_list
+package com.udacity.shoestore
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.udacity.shoestore.models.Shoe
+import timber.log.Timber
 
-class ShoeListViewModel : ViewModel() {
+//the shoeListViewModel was the Activity lvl view model i just didn't change it name
+class MainActivityViewModel : ViewModel() {
     private var _shoeList = MutableLiveData<MutableList<Shoe>>()
     val shoeList: LiveData<MutableList<Shoe>> get() = _shoeList
 
+
+    val submitted = MutableLiveData<Boolean?>()
+
     init {
+        submitted.value =null
         initList()
     }
 
@@ -50,10 +56,21 @@ class ShoeListViewModel : ViewModel() {
         )
     }
 
-    fun updateList(shoe: Shoe){
-        _shoeList.value?.add(shoe)
+    fun onSubmitClick(
+        name: String?,
+        company: String?,
+        description: String?,
+        size: String?,
+        price: String?,
+        url: String?
+    ) {
+        if (name != null && company != null && description != null && size != null && price != name && url != null && price != null) {
+            _shoeList.value?.add(Shoe(name, size.toDouble(), company, description, url, price.toDouble()))
+            submitted.value = true
+        }else{
+            submitted.value = false
+        }
+
     }
-
-
 
 }

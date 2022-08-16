@@ -8,16 +8,15 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.udacity.shoestore.databinding.ActivityMainBinding
-import com.udacity.shoestore.screens.shoe_list.ShoeListViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
-    private lateinit var viewModel: ShoeListViewModel
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        viewModel = ViewModelProvider(this)[ShoeListViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
         supportActionBar?.hide()
         navController = this.findNavController(R.id.myNavHostFragment)

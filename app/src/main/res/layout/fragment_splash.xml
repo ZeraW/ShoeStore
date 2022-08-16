@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- here the code worked perfectly as i wanted  with no modification so i didn't care to change a thing -->
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".screens.splash.SplashFragment">
 
     <ImageView

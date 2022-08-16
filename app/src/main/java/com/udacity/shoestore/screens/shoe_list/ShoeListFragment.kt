@@ -5,49 +5,47 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.udacity.shoestore.MainActivityViewModel
 import com.udacity.shoestore.PrefsHelper
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentShoeListBinding
+import com.udacity.shoestore.databinding.ShoeCardBinding
 import com.udacity.shoestore.models.Shoe
+import timber.log.Timber
+
 
 class ShoeListFragment : Fragment() {
     private lateinit var binding: FragmentShoeListBinding
-    private lateinit var xadapter: RecyclerAdapter
-    private val viewModel: ShoeListViewModel by activityViewModels()
+    private lateinit var shoeCardBinding: ShoeCardBinding
+    private val viewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_list, container, false)
+        shoeCardBinding = DataBindingUtil.inflate(inflater, R.layout.shoe_card, container, false)
+        binding.mainViewModel = viewModel
+
 
         viewModel.shoeList.observe(viewLifecycleOwner) { list ->
-            xadapter = RecyclerAdapter(list)
-            if (list != null) {
-                //init the recycler
-                binding.shoeListRecycler.apply {
-                    adapter = xadapter
-                    layoutManager = LinearLayoutManager(context)
-                }
+            binding.shoeListLinear.removeAllViewsInLayout()
+            for (shoe in list) {
+                val shoeCardBinding1: ShoeCardBinding =
+                    DataBindingUtil.inflate(inflater, R.layout.shoe_card, container, false)
+                shoeCardBinding1.listItem = shoe
+                binding.shoeListLinear.addView(shoeCardBinding1.root)
             }
         }
 
         //go to Details Fragment
         binding.addShoeFab.setOnClickListener {
-             findNavController()
-                 .navigate(ShoeListFragmentDirections.actionShoeListFragmentToDetailsFragment())
+            findNavController().navigate(ShoeListFragmentDirections.actionShoeListFragmentToDetailsFragment())
         }
 
 
-
-        //get data from Detail Fragment
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Shoe>("key")?.observe(viewLifecycleOwner) {shoe->
-                if(shoe!=null){
-                    updateList(shoe)
-                }
-            }
 
         setHasOptionsMenu(true)
         return binding.root
@@ -63,7 +61,7 @@ class ShoeListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.logout -> {
-                PrefsHelper.write("status","out")
+                PrefsHelper.write("status", "out")
                 findNavController().navigate(ShoeListFragmentDirections.actionShoeListFragmentToLoginFragment())
 
                 false
@@ -72,8 +70,4 @@ class ShoeListFragment : Fragment() {
         }
     }
 
-    private fun updateList(shoe: Shoe){
-        viewModel.updateList(shoe)
-        xadapter.notifyDataSetChanged()
-    }
 }
