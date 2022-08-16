@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Shoe(var name: String, var size: Double, var company: String, var description: String, val image: String , var price:Double):Parcelable
+data class Shoe(var name: String, var size: String, var company: String, var description: String,  var image:String, var price:String):Parcelable
 {
     companion object {
         @JvmStatic //todo idk what this do ( remember to ask )

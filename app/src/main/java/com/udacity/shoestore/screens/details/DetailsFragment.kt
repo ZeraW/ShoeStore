@@ -19,26 +19,25 @@ import timber.log.Timber
 
 class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
-    private val viewModel: MainActivityViewModel by activityViewModels()
-
+    private val mainViewModel: MainActivityViewModel by activityViewModels()
+    private lateinit var detailsViewModel: DetailsViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
-        binding.detailsViewModel = viewModel
+        detailsViewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
+        binding.detailsViewModel = detailsViewModel
+        binding.lifecycleOwner = this
 
-
-        viewModel.submitted.observe(viewLifecycleOwner) { isSubmitted ->
-            if (isSubmitted != null) {
-                if (isSubmitted) {
-                    findNavController().popBackStack()
-                    viewModel.submitted.value =null
-                } else {
-                    Toast.makeText(context, "You must fill all the fields", Toast.LENGTH_LONG).show()
-                    viewModel.submitted.value =null
-                }
+        detailsViewModel.shoe.observe(viewLifecycleOwner) { shoe ->
+            if (shoe != null) {
+                mainViewModel.shoeList.value?.add(shoe)
+                findNavController().popBackStack()
+            } else {
+                Toast.makeText(context, "You must fill all the fields", Toast.LENGTH_LONG).show()
             }
+
         }
 
         return binding.root

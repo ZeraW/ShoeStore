@@ -6,7 +6,7 @@
     <data>
         <variable
             name="detailsViewModel"
-            type="com.udacity.shoestore.MainActivityViewModel" />
+            type="com.udacity.shoestore.screens.details.DetailsViewModel" />
     </data>
 
     <ScrollView
@@ -30,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_shoe_name"
+                android:text="@={detailsViewModel.name}"
                 android:inputType="text"
                 android:minHeight="48dp"
                 android:selectAllOnFocus="true"
@@ -39,6 +40,8 @@
                 android:id="@+id/company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={detailsViewModel.company}"
+
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:hint="@string/enter_shoe_company_name"
@@ -50,6 +53,8 @@
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@={detailsViewModel.description}"
+
                 android:hint="@string/enter_shoe_description"
                 android:inputType="text"
                 android:minHeight="48dp"
@@ -60,6 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:text="@={detailsViewModel.size}"
+
                 android:layout_marginBottom="8dp"
                 android:hint="@string/enter_shoe_size"
                 android:inputType="number"
@@ -71,6 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/enter_shoe_price"
+                android:text="@={detailsViewModel.price}"
                 android:inputType="number"
                 android:minHeight="48dp"
                 />
@@ -81,6 +89,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:text="@={detailsViewModel.url}"
+
                 android:hint="@string/enter_shoe_image_url"
                 android:inputType="textUri"
                 android:minHeight="48dp" />
@@ -91,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:backgroundTint="@color/colorAccent"
-                android:onClick="@{()->detailsViewModel.onSubmitClick(name.getText().toString(),company.getText().toString(),description.getText().toString(),size.getText().toString(),price.getText().toString(), image.getText().toString()  )}"
+                android:onClick="@{()->detailsViewModel.onSubmitClick()}"
                 android:text="@string/submit"
                 android:textColor="@android:color/white" />
 
