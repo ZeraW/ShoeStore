@@ -18,5 +18,8 @@
     <!-- fonts -->
     <dimen name="sp18">18sp</dimen>
     <dimen name="sp20">20sp</dimen>
+    <dimen name="m24">24dp</dimen>
+    <dimen name="m64">64dp</dimen>
+    <dimen name="m96">96dp</dimen>
 
 </resources>

@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.udacity.shoestore.databinding.ActivityMainBinding
 
@@ -19,7 +20,11 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
         supportActionBar?.hide()
-        navController = this.findNavController(R.id.myNavHostFragment)
+
+        //got an error switching from Fragment to FragmentContainerView and i found this fix
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
+
         NavigationUI.setupActionBarWithNavController(this, navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.shoeListFragment) {

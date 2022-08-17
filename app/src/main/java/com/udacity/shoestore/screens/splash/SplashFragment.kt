@@ -28,7 +28,7 @@ class SplashFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false)
+        binding = FragmentSplashBinding.inflate(inflater,container,false)
 
         //sharedPref
         val status: String? = PrefsHelper.read("status","out-first")

@@ -25,10 +25,13 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details, container, false)
+        binding = FragmentDetailsBinding.inflate(inflater,container,false)
         detailsViewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
         binding.detailsViewModel = detailsViewModel
         binding.lifecycleOwner = this
+        binding.cancel.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         detailsViewModel.shoe.observe(viewLifecycleOwner) { shoe ->
             if (shoe != null) {

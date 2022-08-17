@@ -25,7 +25,7 @@ class ShoeListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_list, container, false)
+        binding = FragmentShoeListBinding.inflate(inflater,container,false)
         shoeCardBinding = DataBindingUtil.inflate(inflater, R.layout.shoe_card, container, false)
         binding.mainViewModel = viewModel
 

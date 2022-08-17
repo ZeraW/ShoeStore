@@ -36,6 +36,7 @@
     <string name="enter_shoe_price">Enter Shoe Price</string>
     <string name="enter_shoe_image_url">Enter Shoe Image URL</string>
     <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>
